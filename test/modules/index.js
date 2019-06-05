@@ -56,4 +56,8 @@ if (typeof document !== 'undefined') {
   canvas.width = gl.drawingBufferWidth;
   canvas.height = gl.drawingBufferHeight;
   gl.canvas = canvas;
+
+  global.Image = dom.window.Image;
+  global.HTMLCanvasElement = dom.window.HTMLCanvasElement;
+  global.HTMLVideoElement = dom.window.HTMLVideoElement;
 }
