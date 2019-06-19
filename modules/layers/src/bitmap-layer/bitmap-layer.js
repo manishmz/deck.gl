@@ -200,12 +200,19 @@ export default class BitmapLayer extends Layer {
       const sizeChanged =
         bitmapTexture.width !== image.videoWidth || bitmapTexture.height !== image.videoHeight;
       if (sizeChanged) {
-        // `mipmaps` is force to `false` when calling resize
+        // note clears image and mipmaps when resizing
         bitmapTexture.resize({width: image.videoWidth, height: image.videoHeight});
-        bitmapTexture.setParameters(DEFAULT_TEXTURE_PARAMETERS);
+        bitmapTexture.setImageData({
+          data: image,
+          parameters: DEFAULT_TEXTURE_PARAMETERS
+        });
+        bitmapTexture.generateMipmap();
+      } else {
+        bitmapTexture.setImageData({
+          data: image,
+          parameters: DEFAULT_TEXTURE_PARAMETERS
+        });
       }
-
-      bitmapTexture.setSubImageData({data: image});
     }
 
     // // TODO fix zFighting
